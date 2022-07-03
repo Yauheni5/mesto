@@ -1,0 +1,8 @@
+.profile__info {
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'profile__user form-edit__button'
+    'profile__user-job .';
+}

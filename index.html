@@ -6,10 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
-<body>
-
+<body class="page">
+  <header class="header">
+    <img src="./images/logoMesto.png" alt="Логотип Место" class="logo">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img src="./images/avatarKusto.jpg" alt="Аватар пользователя" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="profile__user">Жак-Ив Кусто</h1>
+        <p class="profile__user-job">Исследователь океана</p>
+        <form class="form-edit">
+          <button class="form-edit__button">Edit</button>
+        </form>
+      </div>
+      <form class="form-add">
+        <button class="form-add__button">Add</button>
+      </form>
+    </section>
+  </main>
+  <footer class="footer">footer</footer>
 </body>
 
 </html>
