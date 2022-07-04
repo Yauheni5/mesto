@@ -16,5 +16,9 @@
 @import url('../blocks/profile/__info/profile__info.css');
 @import url('../blocks/profile/__user/profile__user.css');
 @import url('../blocks/profile/__user-job/profile__user-job.css');
+
+/* import forms */
+@import url('../blocks/form-edit/form-edit.css');
 @import url('../blocks/form-edit/__button/form-edit__button.css');
+@import url('../blocks/form-add/form-add.css');
 @import url('../blocks/form-add/__button/form-add__button.css');

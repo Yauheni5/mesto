@@ -1,0 +1,6 @@
+.form-edit {
+  grid-area: form-edit;
+  align-self: center;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
