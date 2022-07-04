@@ -1,0 +1,10 @@
+.form-like__button {
+  border: none;
+  margin-top: 5px;
+  width: 22px;
+  height: 19px;
+  background-image: url('../../../images/heartLike.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #FFF;
+}

@@ -22,3 +22,15 @@
 @import url('../blocks/form-edit/__button/form-edit__button.css');
 @import url('../blocks/form-add/form-add.css');
 @import url('../blocks/form-add/__button/form-add__button.css');
+@import url('../blocks/form-like/form-like.css');
+@import url('../blocks/form-like/__button/form-like__button.css');
+
+/* import card */
+@import url('../blocks/cards/cards.css');
+@import url('../blocks/card/card.css');
+@import url('../blocks/card/__image/card__image.css');
+@import url('../blocks/card/__caption/card__caption.css');
+@import url('../blocks/card/__title/card__title.css');
+
+/* import footer */
+@import url('../blocks/footer/footer.css');
