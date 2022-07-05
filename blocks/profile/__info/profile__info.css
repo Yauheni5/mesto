@@ -1,16 +1,25 @@
 .profile__info {
+  max-width: 580px;
   margin-top: 17px;
+  margin-right: 50px;
   display: grid;
-  gap: 16px;
-  grid-template-columns: max-content auto;
-  grid-template-rows: max-content;
+  justify-content: start;
+  align-content: center;
+  gap: 16px 18px;
+  box-sizing: border-box;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
   grid-template-areas:
     'profile__user form-edit'
-    'profile__user-job profile__user-job';
+    'profile__user-job .';
 }
 
 @media (max-width: 620px) {
-  .cards {
-    margin-top: 22.25px;
+  .profile__info {
+    margin: 22.25px 0 0 0;
+    justify-content: center;
+    grid-template-areas:
+      'profile__user form-edit'
+      'profile__user-job profile__user-job';
   }
 }

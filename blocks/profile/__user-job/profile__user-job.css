@@ -1,8 +1,10 @@
 .profile__user-job {
-  display: grid;
+  display: inline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   grid-area: profile__user-job;
-  justify-content: start;
-  margin: 0;
+  margin: 0 5px 0 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
