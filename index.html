@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body class="page">
+  <header class="header">
+    <img src="./images/logoMesto.png" alt="Логотип Место" class="logo">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img src="./images/avatarKusto.jpg" alt="Аватар пользователя" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="profile__user">Жак-Ив Кусто</h1>
+        <p class="profile__user-job">Исследователь океана</p>
+        <form class="form-edit">
+          <input type="button" class="form-edit__button"></input>
+          <div class="pop-up">
+            <div class="pop-up__container">
+              <h2 class="pop-up__title">Редактировать профиль</h2>
+              <input type="text" value="Жак-Ив Кусто" class="pop-up__profile-user">
+              <input type="text" value="Исследователь океана" class="pop-up__profile-user-job">
+              <input type="button" value="Сохранить" class="pop-up__button-save">
+              <input type="button" class="pop-up__close-icon">
+            </div>
+          </div>
+        </form>
+      </div>
+      <form class="form-add">
+        <input type="button" class="form-add__button">
+      </form>
+    </section>
+    <section class="cards">
+      <article class="card">
+        <img src="./images/brest.jpg" alt="Брест" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Брест</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/vitebsk.jpg" alt="Витебск" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Витебск</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/gomel.jpg" alt="Гомель" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Гомель</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/hrodno.jpg" alt="Гродно" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Гродно</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/mogilev.jpg" alt="Могилёв" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Могилёв</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/minsk.jpg" alt="Минск" class="card__image">
+        <div class="card__caption">
+          <h2 class="card__title">Минск</h2>
+          <form class="form-like">
+            <button class="form-like__button"></button>
+          </form>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyrigt">© 2020 Mesto Russia</p>
+  </footer>
+  <script src="./scripts/script.js"></script>
+</body>
+
+</html>
