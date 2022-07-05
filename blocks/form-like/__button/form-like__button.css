@@ -7,4 +7,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #FFF;
+  transition: opacity .5s;
+}
+
+.form-like__button:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }

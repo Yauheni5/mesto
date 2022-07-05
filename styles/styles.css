@@ -1,6 +1,9 @@
 /* import normalize.css */
 @import url('../vendor/normalize.css');
 
+/* font Inter */
+@import url('../vendor/fonts/InterV3.19/inter.css');
+
 /* import page.css */
 @import url('../blocks/page/page.css');
 
@@ -22,15 +25,25 @@
 @import url('../blocks/form-edit/__button/form-edit__button.css');
 @import url('../blocks/form-add/form-add.css');
 @import url('../blocks/form-add/__button/form-add__button.css');
-@import url('../blocks/form-like/form-like.css');
 @import url('../blocks/form-like/__button/form-like__button.css');
 
 /* import card */
 @import url('../blocks/cards/cards.css');
-@import url('../blocks/card/card.css');
 @import url('../blocks/card/__image/card__image.css');
 @import url('../blocks/card/__caption/card__caption.css');
 @import url('../blocks/card/__title/card__title.css');
 
 /* import footer */
 @import url('../blocks/footer/footer.css');
+@import url('../blocks/footer/__copyright/footer__copyrigt.css');
+
+/* import pop-up */
+@import url('../blocks/pop-up/pop-up.css');
+@import url('../blocks/pop-up/__title/pop-up__title.css');
+@import url('../blocks/pop-up/__profile-user/pop-up__profile-user.css');
+@import url('../blocks/pop-up/__profile-user-job/pop-up__profile-user-job.css');
+@import url('../blocks/pop-up/__button-save/pop-up__button-save.css');
+@import url('../blocks/pop-up/__close-icon/pop-up__close-icon.css');
+
+@import url('../blocks/blackout/blackout.css');
+@import url('../blocks/blackout-active/blackout-active.css');

@@ -6,4 +6,10 @@
   background-image: url('../../../images/pencilEdit.svg');
   background-repeat: no-repeat;
   background-position: 50%;
+  transition: opacity .5s;
+}
+
+.form-edit__button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }

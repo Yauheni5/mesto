@@ -21,7 +21,16 @@
         <h1 class="profile__user">Жак-Ив Кусто</h1>
         <p class="profile__user-job">Исследователь океана</p>
         <form class="form-edit">
-          <button class="form-edit__button"></button>
+          <input type="button" class="form-edit__button"></input>
+          <div class="blackout">
+            <div class="pop-up">
+              <h2 class="pop-up__title">Редактировать профиль</h2>
+              <input type="text" value="Жак-Ив Кусто" class="pop-up__profile-user">
+              <input type="text" value="Исследователь океана" class="pop-up__profile-user-job">
+              <input type="button" value="Сохранить" class="pop-up__button-save">
+              <input type="button" class="pop-up__close-icon">
+            </div>
+          </div>
         </form>
       </div>
       <form class="form-add">
@@ -88,6 +97,7 @@
   <footer class="footer">
     <p class="footer__copyrigt">© 2020 Mesto Russia</p>
   </footer>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

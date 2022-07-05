@@ -1,8 +1,22 @@
 .cards {
   max-width: 880px;
-  margin: auto;
+  margin: 47.25px auto 0;
   display: grid;
+  justify-content: center;
   gap: 20px 17px;
   grid-template: repeat(2, 361px) / repeat(3, 282px);
-  margin-top: 47.25px;
+}
+
+
+@media (max-width: 880px) {
+  .cards {
+    grid-template: repeat(3, 361px) / repeat(2, 282px);
+  }
+}
+
+@media (max-width: 620px) {
+  .cards {
+    grid-template: auto / 1fr;
+    margin-top: 36px;
+  }
 }

@@ -1,7 +1,17 @@
 .profile__user-job {
+  display: grid;
   grid-area: profile__user-job;
+  justify-content: start;
   margin: 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+}
+
+@media (max-width: 620px) {
+  .profile__user-job {
+    font-size: 18px;
+    line-height: 1.21;
+    justify-content: center;
+  }
 }

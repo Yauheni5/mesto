@@ -4,3 +4,10 @@
   justify-content: center;
   box-sizing: border-box;
 }
+
+@media (max-width: 620px) {
+  .form-add {
+    margin-top: 36px;
+    min-width: 100%;
+  }
+}
