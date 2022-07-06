@@ -1,7 +1,6 @@
 .profile__info {
   max-width: 580px;
-  margin-top: 17px;
-  margin-right: 50px;
+  margin-right: 10px;
   display: grid;
   justify-content: start;
   align-content: center;

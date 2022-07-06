@@ -1,25 +1,37 @@
 //                   ПЕРЕМЕННЫЕ
+
+
 // Блок который затемняет фон страницы(весь блок модального окна(попап)) в DOM
 let blackoutPage = document.querySelector('.pop-up');
+
 // Попап контейнер(модальное окно)
 let popUp = document.querySelector('.pop-up__container');
+
 // Кнопка редактирования профиля пользователя
-let buttonEditProfile = document.querySelector('.form-edit__button');
+let buttonEditProfile = document.querySelector('.profile__button_edit');
+
 // Кнопка(крестик) закрывающая Попап
 let buttonClosePopUp = document.querySelector('.pop-up__close-icon');
+
 // Редакционное поле ввода ИмяФамилия пользователя
 let nameInput = popUp.querySelector('.pop-up__profile-user');
+
 // Редакционное поле ввода должности пользователя
 let jobInput = popUp.querySelector('.pop-up__profile-user-job');
+
 // Кнопка "сохранить" блока Попапа
 let buttonSaveEditProfile = popUp.querySelector('.pop-up__button-save');
+
 // Элемент Профиль пользователя(Имя Фамилия)
 let profileUserHtml = document.querySelector('.profile__user');
+
 // Элемент професии пользователя
 let profileJobUserHtml = document.querySelector('.profile__user-job');
 
 
 //                    ФУНКЦИИ
+
+
 /* Активировать попап. (Добавление соответсвующего класса) */
 function popUpOpenClickEditProfile() {
   if (!(blackoutPage.classList.contains('pop-up_active'))) {

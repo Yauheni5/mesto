@@ -1,10 +1,8 @@
-.form-like__button {
+.profile__button_like {
   border: none;
-  margin-top: 5px;
   width: 22px;
   height: 19px;
-  background-image: url('../../../images/heartLike.svg');
-  background-repeat: no-repeat;
+  background-image: url('../../../../images/heartLike.svg');
   background-size: cover;
   background-color: #FFF;
   transition: opacity .5s;
@@ -12,5 +10,4 @@
 
 .form-like__button:hover {
   opacity: 0.5;
-  cursor: pointer;
 }

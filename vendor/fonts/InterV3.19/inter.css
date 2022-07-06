@@ -12,12 +12,12 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-display: swap;
-  src: url("Inter-Bold.woff2?v=3.19") format("woff2"),
-    url("Inter-Bold.woff?v=3.19") format("woff"),
-    url("Inter-Bold.ttf?v=3.19") format("ttf"),
-    url('Inter-Bold.otf?v=3.19') format('otf');
+  src: url("Inter-Medium.woff2?v=3.19") format("woff2"),
+    url("Inter-Medium.woff?v=3.19") format("woff"),
+    url("Inter-Medium.ttf?v=3.19") format("ttf"),
+    url('Inter-Medium.otf?v=3.19') format('otf');
 }
 
 @font-face {

@@ -1,16 +1,10 @@
 .footer {
   max-width: 880px;
   margin: 67px auto 60px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.22;
-  color: #545454;
 }
 
 @media (max-width: 620px) {
   .footer {
     margin: 48px auto 36px;
-    font-size: 14px;
-    line-height: 1.21;
   }
 }

@@ -1,0 +1,10 @@
+.profile__button_edit {
+  position: relative;
+  grid-area: form-edit;
+  align-self: center;
+  border: 1px solid #FFF;
+  width: 24px;
+  min-height: 24px;
+  background-image: url('../../../../images/pencilEdit.svg');
+  background-size: 10px;
+}
