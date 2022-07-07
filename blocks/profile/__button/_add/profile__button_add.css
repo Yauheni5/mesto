@@ -1,14 +1,22 @@
 .profile__button_add {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 150px;
+  min-width: 150px;
   min-height: 50px;
   border: 2px solid #FFF;
   border-radius: 2px;
   background-image: url('../../../../images/plus.svg');
 
 }
+
+@media (max-width: 880px) {
+  .profile__button_add {
+    min-width: 50px;
+  }
+}
+
 
 @media (max-width: 620px) {
   .profile__button_add {

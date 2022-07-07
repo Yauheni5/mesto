@@ -2,4 +2,15 @@
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   max-width: 880px;
   margin: auto;
+  padding-top: 45px;
+  padding-bottom: 41px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 880px) {
+  .header {
+    padding-top: 28px;
+    padding-left: 27px;
+    padding-bottom: 31.6px;
+  }
 }

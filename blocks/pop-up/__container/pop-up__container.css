@@ -1,4 +1,6 @@
 .pop-up__container {
+  padding: 34px 36px 37px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -7,7 +9,7 @@
   top: 50%;
   left: 50%;
   width: 430px;
-  height: 330px;
+  min-height: 330px;
   color: #000000;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
@@ -18,5 +20,6 @@
 @media (max-width: 880px) {
   .pop-up__container {
     width: 282px;
+    padding: 25px 22px;
   }
 }

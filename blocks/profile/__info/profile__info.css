@@ -1,11 +1,8 @@
 .profile__info {
-  max-width: 580px;
-  margin-right: 10px;
   display: grid;
   justify-content: start;
   align-content: center;
   gap: 16px 18px;
-  box-sizing: border-box;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto;
   grid-template-areas:
@@ -15,7 +12,8 @@
 
 @media (max-width: 620px) {
   .profile__info {
-    margin: 22.25px 0 0 0;
+    gap: 14px 10px;
+    margin-top: 22.25px;
     justify-content: center;
     grid-template-areas:
       'profile__user form-edit'

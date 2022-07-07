@@ -1,6 +1,5 @@
 .cards {
-  max-width: 880px;
-  margin: 47.25px auto 0;
+  padding-top: 47.25px;
   display: grid;
   justify-content: center;
   gap: 20px 17px;
@@ -17,6 +16,6 @@
 @media (max-width: 620px) {
   .cards {
     grid-template: auto / 1fr;
-    margin-top: 36px;
+    padding-top: 36px;
   }
 }

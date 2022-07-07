@@ -1,8 +1,5 @@
-.pop-up__profile-user {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  margin: 0 36px;
+.pop-up__info-edit-field {
+  padding: 0 0 13px 0;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   font-weight: 400;

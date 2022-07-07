@@ -12,7 +12,7 @@
 
 <body class="page">
   <header class="header">
-    <img src="./images/logoMesto.png" alt="Логотип Место" class="logo">
+    <img src="./images/logoMesto.svg" alt="Логотип Место" class="logo">
   </header>
   <main class="content">
     <section class="profile">
@@ -29,42 +29,42 @@
         <img src="./images/brest.jpg" alt="Брест" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Брест</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/vitebsk.jpg" alt="Витебск" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Витебск</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/gomel.jpg" alt="Гомель" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Гомель</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/hrodno.jpg" alt="Гродно" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Гродно</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/mogilev.jpg" alt="Могилёв" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Могилёв</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/minsk.jpg" alt="Минск" class="card__image">
         <div class="card__caption">
           <h2 class="card__title">Минск</h2>
-          <button class="card__button card__button_like"></button>
+          <button class="card__button"></button>
         </div>
       </article>
     </section>
@@ -72,15 +72,15 @@
   <footer class="footer">
     <p class="footer__copyrigt">© 2020 Mesto Russia</p>
   </footer>
-  <section class="pop-up">
+  <div class="pop-up">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Редактировать профиль</h2>
-      <input type="text" value="Жак-Ив Кусто" class="pop-up__profile-user">
-      <input type="text" value="Исследователь океана" class="pop-up__profile-user-job">
-      <input type="button" value="Сохранить" class="pop-up__button-save">
+      <input type="text" value="Жак-Ив Кусто" class="pop-up__info-edit-field pop-up__profile-user">
+      <input type="text" value="Исследователь океана" class="pop-up__info-edit-field pop-up__profile-user-job">
+      <button type="button" class="pop-up__button-save">Сохранить</button>
       <button type="button" class="pop-up__close-icon"></button>
     </div>
-  </section>
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 

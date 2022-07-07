@@ -3,14 +3,13 @@
   align-items: center;
   grid-template-columns: 1fr 4fr 0.75fr;
   grid-template-rows: auto;
-  max-width: 880px;
-  margin: 40px auto 0;
+  padding-top: 40px;
 }
 
 @media (max-width: 620px) {
   .profile {
     grid-template: auto / 1fr;
     justify-items: center;
-    margin-top: 38.25px;
+    padding-top: 38.25px;
   }
 }
