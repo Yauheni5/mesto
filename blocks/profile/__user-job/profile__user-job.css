@@ -1,5 +1,4 @@
 .profile__user-job {
-  max-width: 530px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
