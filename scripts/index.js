@@ -180,7 +180,6 @@ function createNewCard(initialCard) {
   imgCard.addEventListener('click', function (evt) {
     evt.preventDefault();
     openPopup(popUpViewCard);
-    console.log(popUpViewCard);
     popUpViewImg.src = imgCard.src;
     popUpViewCardTitle.textContent = imgCard.alt;
   })
