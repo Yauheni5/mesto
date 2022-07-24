@@ -50,8 +50,6 @@
 @import url('../blocks/pop-up/__profile-user-job/pop-up__profile-user-job.css');
 @import url('../blocks/pop-up/__button-save/pop-up__button-save.css');
 @import url('../blocks/pop-up/__close-icon/pop-up__close-icon.css');
-@import url('../blocks/pop-up/_edit-profile/pop-up_edit-profile.css');
-@import url('../blocks/pop-up/_add-card/pop-up_add-card.css');
 @import url('../blocks/pop-up/_view-card/pop-up_view-card.css');
 @import url('../blocks/pop-up/__container/_view-card/pop-up__container_view-card.css');
 @import url('../blocks/pop-up/__view-img/pop-up__view-img.css');
