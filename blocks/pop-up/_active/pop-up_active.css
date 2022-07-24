@@ -1,3 +1,5 @@
 .pop-up_active {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .55s linear, visibility .55s;
 }

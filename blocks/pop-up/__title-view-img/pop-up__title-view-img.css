@@ -1,0 +1,12 @@
+.pop-up__title-view-img {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  margin: 0;
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, .9);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #FFFFFF;
+}
