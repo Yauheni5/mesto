@@ -7,58 +7,59 @@ const selectorsCards = {
   sectionCards: '.cards',
   imgCard: '.card__image',
   titleCard: '.card__title',
-  inputNameCard: '.pop-up__name-new-card',
-  inputUrlCard: '.pop-up__url-new-card',
   buttonDeleteCard: '.card__button-delete',
   buttonLikeCard: '.card__button-like',
   buttonAddCard: '.profile__button_add',
-  buttonSaveCard: '.pop-up__button-save',
   popUpAddCard: '.pop-up_add-card',
+  formAddCard: '.pop-up__form-add-card',
 }
 
 const selectorsPopUp = {
   popUp: '.pop-up',
-  form: '.pop-up__container',
   popUpViewCard: '.pop-up_view-card',
   popUpViewImg: '.pop-up__view-img',
-  popUpCardCloseIcon: '.pop-up__close-icon',
-  popUpViewCardTitle: '.pop-up__title-view-img'
+  popUpViewCardTitle: '.pop-up__title-view-img',
+  popUpCloseIcons: '.pop-up__close-icon'
 }
 
-// Блок который затемняет фон страницы(весь блок модального окна(попап)) в DOM
-const popUp = document.querySelector(selectorsPopUp.popUp);
-// Кнопка редактирования профиля пользователя
-let buttonEditProfile = document.querySelector('.profile__button_edit');
+const selectorsPopUpProfile = {
+  profilePopUp: '.pop-up_edit-profile',
+  buttonEditProfile: '.profile__button_edit',
+}
 
-// Кнопка(крестик) закрывающая Попап
-let buttonClosePopUpIcon = document.querySelector('.pop-up__close-icon');
+const selectorsPopUpAddNewCard = {
+  buttonAddNewCard: '.profile__button_add',
+}
 
-// Редакционное поле ввода ИмяФамилия пользователя
-let nameInput = document.querySelector('.pop-up__profile-user');
+const selectorsInput = {
+  inputNameUser: '.pop-up__profile-user',
+  inputJobUser: '.pop-up__profile-user-job',
+  inputNameCard: '.pop-up__name-new-card',
+  inputUrlCard: '.pop-up__url-new-card',
+}
 
-// Редакционное поле ввода должности пользователя
-let jobInput = document.querySelector('.pop-up__profile-user-job');
-
-// Кнопка "сохранить" блока Попапа
-let buttonSaveEditProfile = document.querySelector('.pop-up__button-save');
-
-// Элемент Профиль пользователя(Имя Фамилия)
-let profileUserHtml = document.querySelector('.profile__user');
-
-// Элемент инфо о пользователе
-let profileJobUserHtml = document.querySelector('.profile__user-job');
+const selectorsGeneral = {
+  nameUser: '.profile__user',
+  jobUser: '.profile__user-job',
+}
 
 const templateCard = document.querySelector(selectorsCards.templateCard).content.querySelector(selectorsCards.articleCard);
 const articleCard = document.querySelector(selectorsCards.articleCard);
-let form = document.querySelector(selectorsPopUp.form);
+const formAddCard = document.querySelector(selectorsCards.formAddCard);
 const sectionCards = document.querySelector(selectorsCards.sectionCards);
 const buttonAddCard = document.querySelector(selectorsCards.buttonAddCard);
 const popUpAddCard = document.querySelector(selectorsCards.popUpAddCard);
-const popUpCardCloseIcon = popUpAddCard.querySelector(selectorsPopUp.popUpCardCloseIcon);
-const buttonSaveCard = document.querySelector(selectorsCards.buttonSaveCard);
 const popUpViewCard = document.querySelector(selectorsPopUp.popUpViewCard);
 const popUpViewImg = document.querySelector(selectorsPopUp.popUpViewImg);
 const popUpViewCardTitle = document.querySelector(selectorsPopUp.popUpViewCardTitle);
+const popUpCloseIcons = document.querySelectorAll(selectorsPopUp.popUpCloseIcons);
+const profilePopUp = document.querySelector(selectorsPopUpProfile.profilePopUp);
+const buttonEditProfile = document.querySelector(selectorsPopUpProfile.buttonEditProfile);
+const inputNameUser = document.querySelector(selectorsInput.inputNameUser);
+const inputJobUser = document.querySelector(selectorsInput.inputJobUser);
+const nameUser = document.querySelector(selectorsGeneral.nameUser);
+const jobUser = document.querySelector(selectorsGeneral.jobUser);
+
 
 const initialCards = [{
     name: 'Брест',
@@ -95,142 +96,125 @@ function openPopup(modal) {
 }
 
 /* Удаление попапа */
-function popUpRemove(modal) {
+function removePopUp(modal) {
   modal.classList.remove('pop-up_active');
 }
 
 /* Активировать попап Редактирование профиля. (Добавление соответсвующего класса) */
-function popUpOpenClickEditProfile() {
-  if (!(popUp.classList.contains('pop-up_active'))) {
-    openPopup(popUp);
-    setPopupInputValue();
-  }
+function clickEditProfileOpenPopUp() {
+  openPopup(profilePopUp);
+  setPopupInputValue();
 };
 
 /* Активировать попап Добавление новой карточки. (Добавление соответсвующего класса) */
-function popUpOpenClickAddNewCard() {
-  if (!(popUpAddCard.classList.contains('pop-up_active'))) {
-    openPopup(popUpAddCard);
-  }
-};
-
-/* Деактивировать попап Редактирование профиля по клику на крестик. Удаление соответствующего класса. */
-function popUpCloseClickCloseIcon() {
-  if (popUp.classList.contains('pop-up_active')) {
-    popUpRemove(popUp);
-  }
-};
-
-/* Деактивировать попап Добавление новой карточки по клику на крестик. Удаление соответствующего класса. */
-function popUpNewCardCloseClickCloseIcon() {
-  if (popUpAddCard.classList.contains('pop-up_active')) {
-    popUpRemove(popUpAddCard);
-  }
-};
-
-/* Скрыть попап при клике вне окна самого попапа */
-function popUpCloseClickBlackout(event) {
-  if (event.target.classList.contains('pop-up') && !event.target.classList.contains('pop-up__container')) {
-    popUpCloseClickCloseIcon();
-  }
+function clickAddNewCardOpenPopUp() {
+  openPopup(popUpAddCard);
 };
 
 // функция которая заполняет поля ввода при открытии попапа
 function setPopupInputValue() {
-  nameInput.value = profileUserHtml.textContent;
-  jobInput.value = profileJobUserHtml.textContent;
+  inputNameUser.value = nameUser.textContent;
+  inputJobUser.value = jobUser.textContent;
 }
 
 //функция которая заполняет введенным текстом из полей ввода инпута, в HTML разметку
 function setTextInfoFromInput() {
-  profileUserHtml.textContent = nameInput.value;
-  profileJobUserHtml.textContent = jobInput.value;
+  nameUser.textContent = inputNameUser.value;
+  jobUser.textContent = inputJobUser.value;
 }
 
 // функция для редактирования информации о пользователе
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   setTextInfoFromInput();
-  popUpRemove(popUp);
+  removePopUp(profilePopUp);
 }
 
 //Функция переключения соответсвующих классов Карточек при клике по like
-function likeCard(event) {
-  if (event.target.classList.contains('card__button-like_active')) {
-    event.target.classList.remove('card__button-like_active');
-  } else {
-    event.target.classList.add('card__button-like_active');
-  }
+function clickLikeCard(event) {
+  event.target.classList.toggle('card__button-like_active');
 };
 
-//добавление-удаление Карточек
-function createNewCard(initialCard) {
-  const newCard = templateCard.cloneNode(true);
-  const imgCard = newCard.querySelector(selectorsCards.imgCard);
-  const titleCard = newCard.querySelector(selectorsCards.titleCard);
-  const buttonDeleteCard = newCard.querySelector(selectorsCards.buttonDeleteCard);
-  const buttonLikeCard = newCard.querySelector(selectorsCards.buttonLikeCard);
+//функция обработки массива заготовленных карточек
+function createInitialCards() {
+  initialCards.map(createNewCard);
+}
+createInitialCards();
+
+//Функция для обработки карточки
+function createCard(item) {
+  const cardElement = templateCard.cloneNode(true);
+  const imgCard = cardElement.querySelector(selectorsCards.imgCard);
+  const titleCard = cardElement.querySelector(selectorsCards.titleCard);
+  const buttonDeleteCard = cardElement.querySelector(selectorsCards.buttonDeleteCard);
+  const buttonLikeCard = cardElement.querySelector(selectorsCards.buttonLikeCard);
 
   buttonDeleteCard.addEventListener('click', function () {
-    newCard.remove();
+    cardElement.remove();
   });
 
-  buttonLikeCard.addEventListener('click', likeCard);
+  buttonLikeCard.addEventListener('click', clickLikeCard);
 
   imgCard.addEventListener('click', function (evt) {
     evt.preventDefault();
     openPopup(popUpViewCard);
     popUpViewImg.src = imgCard.src;
     popUpViewCardTitle.textContent = imgCard.alt;
+    popUpViewImg.alt = imgCard.alt;
   })
 
-  imgCard.src = initialCard.link;
-  imgCard.alt = initialCard.name;
-  titleCard.textContent = initialCard.name;
+  imgCard.src = item.link;
+  imgCard.alt = item.name;
+  titleCard.textContent = item.name;
+  return cardElement;
+}
+
+//добавление карточки
+function createNewCard(item) {
+  const newCard = createCard(item);
   sectionCards.prepend(newCard);
 }
 
+//добавление карточки от пользователя
 function inputNewCardFromUser() {
-  form = popUpAddCard.querySelector(selectorsPopUp.form);
-  const inputNameCard = document.querySelector(selectorsCards.inputNameCard);
-  const inputUrlCard = document.querySelector(selectorsCards.inputUrlCard);
+  const inputNameCard = document.querySelector(selectorsInput.inputNameCard);
+  const inputUrlCard = document.querySelector(selectorsInput.inputUrlCard);
 
-  form.addEventListener('submit', function (evt) {
+  formAddCard.addEventListener('submit', function (evt) {
 
     evt.preventDefault();
 
-    const name = inputNameCard.value
-    const link = inputUrlCard.value
+    const name = inputNameCard.value;
+    const link = inputUrlCard.value;
     const arrNameLink = {
       name,
       link
     };
-
+    evt.target.reset()
     createNewCard(arrNameLink);
-    popUpRemove(popUpAddCard);
+    removePopUp(popUpAddCard);
   });
 }
 inputNewCardFromUser();
 
-function createInitialCards() {
-  initialCards.map(createNewCard);
+
+//Выборка всех кнопок Закрытия попапов
+function clickCloseIconPopup(button) {
+  const popUpActive = button.closest(selectorsPopUp.popUp);
+  button.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    removePopUp(popUpActive);
+  });
 }
-createInitialCards();
-
-
 
 // Открывает попап по клику на Редактирование
-buttonEditProfile.addEventListener('click', popUpOpenClickEditProfile);
+buttonEditProfile.addEventListener('click', clickEditProfileOpenPopUp);
 
 //Открывает попа по клику на Добавить новую карточку
-buttonAddCard.addEventListener('click', popUpOpenClickAddNewCard);
+buttonAddCard.addEventListener('click', clickAddNewCardOpenPopUp);
 
 // Закрывает попап  по клику на Крестик
-buttonClosePopUpIcon.addEventListener('click', popUpCloseClickCloseIcon);
-popUpCardCloseIcon.addEventListener('click', popUpNewCardCloseClickCloseIcon);
-
-// Закрывает попап  по клику вне области Модального окна
-popUp.addEventListener('click', popUpCloseClickBlackout);
+popUpCloseIcons.forEach(clickCloseIconPopup);
 
 // Заменяет информацию о профиле(согласно полям редактирования в попапе) после нажатия на кнопку Сохранения
-popUp.addEventListener('submit', formSubmitHandler);
+profilePopUp.addEventListener('submit', handleProfileFormSubmit);
