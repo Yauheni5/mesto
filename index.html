@@ -44,33 +44,41 @@
     </article>
   </template>
   <div class="pop-up pop-up_edit-profile">
-    <form class="pop-up__container">
+    <form class="pop-up__container pop-up__form" name="form-edit-profile" novalidate>
       <h2 class="pop-up__title">Редактировать профиль</h2>
-      <input type="text" placeholder="Имя Фамилия" class="pop-up__info-edit-field pop-up__profile-user">
-      <input type="text" placeholder="О себе" class="pop-up__info-edit-field pop-up__profile-user-job">
-      <button type="submit" class="pop-up__button-save">Сохранить</button>
+      <input type="text" placeholder="Имя Фамилия" class="pop-up__input pop-up__profile-user" name="name-input"
+        value="Жак-Ив Кусто" required minlength="2" maxlength="40">
+      <span class="name-input-error pop-up__input-error"></span>
+      <input type="text" placeholder="О себе" class="pop-up__input pop-up__profile-user-job" name="job-input" required
+        minlength="2" maxlength="200" value="Исследователь океана">
+      <span class="job-input-error pop-up__input-error"></span>
+      <button type="submit" class="pop-up__button pop-up__button-save">Сохранить</button>
       <button type="button" class="pop-up__close-icon"></button>
     </form>
   </div>
   <div class="pop-up pop-up_add-card">
-    <form class="pop-up__container pop-up__form-add-card">
+    <form class="pop-up__container pop-up__form-add-card pop-up__form" name="form-add-card" novalidate>
       <h2 class="pop-up__title">Новое место</h2>
-      <input type="text" placeholder="Название"
-        class="pop-up__info-edit-field pop-up__profile-user pop-up__name-new-card">
-      <input type="text" placeholder="Ссылка на картинку"
-        class="pop-up__info-edit-field pop-up__profile-user-job pop-up__url-new-card">
-      <button type="submit" class="pop-up__button-save">Создать</button>
+      <input type="text" placeholder="Название" class="pop-up__input pop-up__profile-user pop-up__name-new-card"
+        name="name-card-input" minlength="2" maxlength="30" required>
+      <span class="name-card-input-error pop-up__input-error"></span>
+      <input type="url" placeholder="Ссылка на картинку"
+        class=" pop-up__input pop-up__profile-user-job pop-up__url-new-card" name="url-input" required>
+      <span class="url-input-error pop-up__input-error"></span>
+      <button type="submit" class="pop-up__button pop-up__button-save">Создать</button>
       <button type="button" class="pop-up__close-icon"></button>
     </form>
   </div>
   <div class="pop-up pop-up_view-card">
-    <form class="pop-up__container pop-up__container_view-card">
-      <button class="pop-up__close-icon"></button>
+    <form class="pop-up__container pop-up__container_view-card" novalidate>
+      <button type="button" class="pop-up__close-icon"></button>
       <img src="./images/brest.jpg" alt="#" class="pop-up__view-img">
       <h2 class="pop-up__title-view-img"></h2>
     </form>
   </div>
   <script src="./scripts/index.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
+
 </body>
 
 </html>

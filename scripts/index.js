@@ -9,6 +9,7 @@ const selectorsCards = {
   titleCard: '.card__title',
   buttonDeleteCard: '.card__button-delete',
   buttonLikeCard: '.card__button-like',
+  buttonLikeActiveCard: 'card__button-like_active',
   buttonAddCard: '.profile__button_add',
   popUpAddCard: '.pop-up_add-card',
   formAddCard: '.pop-up__form-add-card',
@@ -16,6 +17,7 @@ const selectorsCards = {
 
 const selectorsPopUp = {
   popUp: '.pop-up',
+  popUpActive: 'pop-up_active',
   popUpViewCard: '.pop-up_view-card',
   popUpViewImg: '.pop-up__view-img',
   popUpViewCardTitle: '.pop-up__title-view-img',
@@ -43,6 +45,7 @@ const selectorsGeneral = {
   jobUser: '.profile__user-job',
 }
 
+const popUp = document.querySelectorAll(selectorsPopUp.popUp);
 const templateCard = document.querySelector(selectorsCards.templateCard).content.querySelector(selectorsCards.articleCard);
 const articleCard = document.querySelector(selectorsCards.articleCard);
 const formAddCard = document.querySelector(selectorsCards.formAddCard);
@@ -92,12 +95,12 @@ const initialCards = [{
 
 /* ОТкрытие попапа */
 function openPopup(modal) {
-  modal.classList.add('pop-up_active');
+  modal.classList.add(selectorsPopUp.popUpActive);
 }
 
 /* Удаление попапа */
 function removePopUp(modal) {
-  modal.classList.remove('pop-up_active');
+  modal.classList.remove(selectorsPopUp.popUpActive);
 }
 
 /* Активировать попап Редактирование профиля. (Добавление соответсвующего класса) */
@@ -132,7 +135,7 @@ function handleProfileFormSubmit(evt) {
 
 //Функция переключения соответсвующих классов Карточек при клике по like
 function clickLikeCard(event) {
-  event.target.classList.toggle('card__button-like_active');
+  event.target.classList.toggle(selectorsCards.buttonLikeActiveCard);
 };
 
 //функция обработки массива заготовленных карточек
@@ -207,6 +210,13 @@ function clickCloseIconPopup(button) {
   });
 }
 
+//Функиця закрытия Попапа по клику вне области попапа
+function closePopupClickOverlay(event) {
+  if (event.target.classList.contains('pop-up') && !event.target.classList.contains('pop-up__container')) {
+    removePopUp(event.target);
+  }
+};
+
 // Открывает попап по клику на Редактирование
 buttonEditProfile.addEventListener('click', clickEditProfileOpenPopUp);
 
@@ -218,3 +228,13 @@ popUpCloseIcons.forEach(clickCloseIconPopup);
 
 // Заменяет информацию о профиле(согласно полям редактирования в попапе) после нажатия на кнопку Сохранения
 profilePopUp.addEventListener('submit', handleProfileFormSubmit);
+
+// Закрывает активный попап по клику вне области попапа и по кнопке Esc
+popUp.forEach((item) => {
+  item.addEventListener('click', closePopupClickOverlay);
+  document.addEventListener('keyup', function (event) {
+    if (event.key === 'Escape') {
+      removePopUp(item);
+    }
+  });
+});
