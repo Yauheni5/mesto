@@ -1,4 +1,5 @@
 'use strict'
+
 //                   ПЕРЕМЕННЫЕ
 
 const selectorsCards = {
@@ -27,6 +28,8 @@ const selectorsPopUp = {
 const selectorsPopUpProfile = {
   profilePopUp: '.pop-up_edit-profile',
   buttonEditProfile: '.profile__button_edit',
+  nameUser: '.profile__user',
+  jobUser: '.profile__user-job',
 }
 
 const selectorsPopUpAddNewCard = {
@@ -34,15 +37,10 @@ const selectorsPopUpAddNewCard = {
 }
 
 const selectorsInput = {
-  inputNameUser: '.pop-up__profile-user',
-  inputJobUser: '.pop-up__profile-user-job',
-  inputNameCard: '.pop-up__name-new-card',
-  inputUrlCard: '.pop-up__url-new-card',
-}
-
-const selectorsGeneral = {
-  nameUser: '.profile__user',
-  jobUser: '.profile__user-job',
+  inputNameUser: '.pop-up__input_user-name',
+  inputJobUser: '.pop-up__input_user-job',
+  inputNameCard: '.pop-up__input_card-name',
+  inputUrlCard: '.pop-up__input_card-url',
 }
 
 const popUp = document.querySelectorAll(selectorsPopUp.popUp);
@@ -60,35 +58,9 @@ const profilePopUp = document.querySelector(selectorsPopUpProfile.profilePopUp);
 const buttonEditProfile = document.querySelector(selectorsPopUpProfile.buttonEditProfile);
 const inputNameUser = document.querySelector(selectorsInput.inputNameUser);
 const inputJobUser = document.querySelector(selectorsInput.inputJobUser);
-const nameUser = document.querySelector(selectorsGeneral.nameUser);
-const jobUser = document.querySelector(selectorsGeneral.jobUser);
+const nameUser = document.querySelector(selectorsPopUpProfile.nameUser);
+const jobUser = document.querySelector(selectorsPopUpProfile.jobUser);
 
-
-const initialCards = [{
-    name: 'Брест',
-    link: './images/brest.jpg'
-  },
-  {
-    name: 'Витебск',
-    link: './images/vitebsk.jpg'
-  },
-  {
-    name: 'Гомель',
-    link: './images/gomel.jpg'
-  },
-  {
-    name: 'Гродно',
-    link: './images/hrodno.jpg'
-  },
-  {
-    name: 'Могилев',
-    link: './images/mogilev.jpg'
-  },
-  {
-    name: 'Минск',
-    link: './images/minsk.jpg'
-  }
-];
 
 //                    ФУНКЦИИ
 
@@ -96,12 +68,21 @@ const initialCards = [{
 /* ОТкрытие попапа */
 function openPopup(modal) {
   modal.classList.add(selectorsPopUp.popUpActive);
-}
+  document.addEventListener('keyup', function (event) {
+    if (event.key === 'Escape') {
+      removePopUp(modal);
+    }
+  }, {
+    once: true
+  });
+  enableValidation(selectorsValidation);
+};
+
 
 /* Удаление попапа */
 function removePopUp(modal) {
   modal.classList.remove(selectorsPopUp.popUpActive);
-}
+};
 
 /* Активировать попап Редактирование профиля. (Добавление соответсвующего класса) */
 function clickEditProfileOpenPopUp() {
@@ -214,8 +195,8 @@ function clickCloseIconPopup(button) {
 function closePopupClickOverlay(event) {
   if (event.target.classList.contains('pop-up') && !event.target.classList.contains('pop-up__container')) {
     removePopUp(event.target);
-  }
-};
+  };
+}
 
 // Открывает попап по клику на Редактирование
 buttonEditProfile.addEventListener('click', clickEditProfileOpenPopUp);
@@ -230,11 +211,7 @@ popUpCloseIcons.forEach(clickCloseIconPopup);
 profilePopUp.addEventListener('submit', handleProfileFormSubmit);
 
 // Закрывает активный попап по клику вне области попапа и по кнопке Esc
+
 popUp.forEach((item) => {
   item.addEventListener('click', closePopupClickOverlay);
-  document.addEventListener('keyup', function (event) {
-    if (event.key === 'Escape') {
-      removePopUp(item);
-    }
-  });
 });

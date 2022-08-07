@@ -46,8 +46,10 @@
 @import url('../blocks/pop-up/__container/pop-up__container.css');
 @import url('../blocks/pop-up/__title/pop-up__title.css');
 @import url('../blocks/pop-up/__input/pop-up__input.css');
-@import url('../blocks/pop-up/__profile-user/pop-up__profile-user.css');
-@import url('../blocks/pop-up/__profile-user-job/pop-up__profile-user-job.css');
+@import url('../blocks/pop-up/__input/_user-name/pop-up__input_user-name.css');
+@import url('../blocks/pop-up/__input/_card-name/pop-up__input_card-name.css');
+@import url('../blocks/pop-up/__input/_user-job/pop-up__input_user-job.css');
+@import url('../blocks/pop-up/__input/_card-url/pop-up__input_card-url.css');
 @import url('../blocks/pop-up/__button-save/pop-up__button-save.css');
 @import url('../blocks/pop-up/__close-icon/pop-up__close-icon.css');
 @import url('../blocks/pop-up/_view-card/pop-up_view-card.css');
