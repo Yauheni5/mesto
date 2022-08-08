@@ -68,31 +68,27 @@ const jobUser = document.querySelector(selectorsPopUpProfile.jobUser);
 /* ОТкрытие попапа */
 function openPopup(modal) {
   modal.classList.add(selectorsPopUp.popUpActive);
-  document.addEventListener('keyup', function (event) {
-    if (event.key === 'Escape') {
-      removePopUp(modal);
-    }
-  }, {
-    once: true
-  });
-  enableValidation(selectorsValidation);
+  document.addEventListener('keyup', closePopUpPressKeyEsc);
 };
 
 
 /* Удаление попапа */
 function removePopUp(modal) {
   modal.classList.remove(selectorsPopUp.popUpActive);
+  document.removeEventListener('keyup', closePopUpPressKeyEsc);
 };
 
 /* Активировать попап Редактирование профиля. (Добавление соответсвующего класса) */
 function clickEditProfileOpenPopUp() {
   openPopup(profilePopUp);
   setPopupInputValue();
+  enableValidation(selectorsValidation);
 };
 
 /* Активировать попап Добавление новой карточки. (Добавление соответсвующего класса) */
 function clickAddNewCardOpenPopUp() {
   openPopup(popUpAddCard);
+  enableValidation(selectorsValidation);
 };
 
 // функция которая заполняет поля ввода при открытии попапа
@@ -181,20 +177,17 @@ function inputNewCardFromUser() {
 }
 inputNewCardFromUser();
 
-
-//Выборка всех кнопок Закрытия попапов
-function clickCloseIconPopup(button) {
-  const popUpActive = button.closest(selectorsPopUp.popUp);
-  button.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    removePopUp(popUpActive);
-  });
+//Функиця закрытия Попапа по ESC
+const closePopUpPressKeyEsc = function (event) {
+  if (event.key === 'Escape') {
+    removePopUp(document.querySelector(`.${selectorsPopUp.popUpActive}`));
+  }
 }
 
 //Функиця закрытия Попапа по клику вне области попапа
 function closePopupClickOverlay(event) {
-  if (event.target.classList.contains('pop-up') && !event.target.classList.contains('pop-up__container')) {
-    removePopUp(event.target);
+  if (event.target.classList.contains('pop-up') || event.target.classList.contains('pop-up__close-icon')) {
+    removePopUp(event.currentTarget);
   };
 }
 
@@ -203,9 +196,6 @@ buttonEditProfile.addEventListener('click', clickEditProfileOpenPopUp);
 
 //Открывает попа по клику на Добавить новую карточку
 buttonAddCard.addEventListener('click', clickAddNewCardOpenPopUp);
-
-// Закрывает попап  по клику на Крестик
-popUpCloseIcons.forEach(clickCloseIconPopup);
 
 // Заменяет информацию о профиле(согласно полям редактирования в попапе) после нажатия на кнопку Сохранения
 profilePopUp.addEventListener('submit', handleProfileFormSubmit);

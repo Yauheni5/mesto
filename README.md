@@ -3,7 +3,7 @@
 
 ### Использовано:
 * HTML+CSS
-* JavaScript
+* JavaScript (Модальное окно, работа с формами(JS validation))
 * методология БЭМ
 * файловая структура по БЭМ
 * Flexbox
