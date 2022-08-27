@@ -1,32 +1,32 @@
 'use strict'
+import {
+  selectorsCards,
+  Card
+} from "./cards.js";
 
+import {
+  FormValidator,
+  selectorsValidation
+} from "./validate.js";
+
+import {
+  initialCards
+}
+from "./constants.js";
 //                   ПЕРЕМЕННЫЕ
 
-const selectorsCards = {
-  templateCard: '#template-card',
-  articleCard: '.card',
-  sectionCards: '.cards',
-  imgCard: '.card__image',
-  titleCard: '.card__title',
-  buttonDeleteCard: '.card__button-delete',
-  buttonLikeCard: '.card__button-like',
-  buttonLikeActiveCard: 'card__button-like_active',
-  buttonAddCard: '.profile__button_add',
-  popUpAddCard: '.pop-up_add-card',
-  formAddCard: '.pop-up__form-add-card',
-}
 
 const selectorsPopUp = {
   popUp: '.pop-up',
   popUpActive: 'pop-up_active',
-  popUpViewCard: '.pop-up_view-card',
-  popUpViewImg: '.pop-up__view-img',
-  popUpViewCardTitle: '.pop-up__title-view-img',
-  popUpCloseIcons: '.pop-up__close-icon'
+  popUpAddCard: '.pop-up_add-card',
+  buttonAddCard: '.profile__button_add',
+  popUpButtonSave: '.pop-up__button-save'
 }
 
 const selectorsPopUpProfile = {
   profilePopUp: '.pop-up_edit-profile',
+  formEditProfile: '.pop-up__form-edit-profile',
   buttonEditProfile: '.profile__button_edit',
   nameUser: '.profile__user',
   jobUser: '.profile__user-job',
@@ -39,21 +39,14 @@ const selectorsPopUpAddNewCard = {
 const selectorsInput = {
   inputNameUser: '.pop-up__input_user-name',
   inputJobUser: '.pop-up__input_user-job',
-  inputNameCard: '.pop-up__input_card-name',
-  inputUrlCard: '.pop-up__input_card-url',
+
 }
 
 const popUp = document.querySelectorAll(selectorsPopUp.popUp);
-const templateCard = document.querySelector(selectorsCards.templateCard).content.querySelector(selectorsCards.articleCard);
-const articleCard = document.querySelector(selectorsCards.articleCard);
-const formAddCard = document.querySelector(selectorsCards.formAddCard);
-const sectionCards = document.querySelector(selectorsCards.sectionCards);
-const buttonAddCard = document.querySelector(selectorsCards.buttonAddCard);
-const popUpAddCard = document.querySelector(selectorsCards.popUpAddCard);
-const popUpViewCard = document.querySelector(selectorsPopUp.popUpViewCard);
-const popUpViewImg = document.querySelector(selectorsPopUp.popUpViewImg);
-const popUpViewCardTitle = document.querySelector(selectorsPopUp.popUpViewCardTitle);
-const popUpCloseIcons = document.querySelectorAll(selectorsPopUp.popUpCloseIcons);
+
+const buttonAddCard = document.querySelector(selectorsPopUp.buttonAddCard);
+const popUpAddCard = document.querySelector(selectorsPopUp.popUpAddCard);
+
 const profilePopUp = document.querySelector(selectorsPopUpProfile.profilePopUp);
 const buttonEditProfile = document.querySelector(selectorsPopUpProfile.buttonEditProfile);
 const inputNameUser = document.querySelector(selectorsInput.inputNameUser);
@@ -61,8 +54,13 @@ const inputJobUser = document.querySelector(selectorsInput.inputJobUser);
 const nameUser = document.querySelector(selectorsPopUpProfile.nameUser);
 const jobUser = document.querySelector(selectorsPopUpProfile.jobUser);
 
-
+const popUpButtonSave = document.querySelector(selectorsPopUp.popUpButtonSave);
+const formAddCard = document.querySelector(selectorsCards.formAddCard);
+const formEditProfile = document.querySelector(selectorsPopUpProfile.formEditProfile);
+const formValidatorCard = new FormValidator(formAddCard, selectorsValidation);
+const formValidatorProfile = new FormValidator(formEditProfile, selectorsValidation);
 //                    ФУНКЦИИ
+
 
 
 /* ОТкрытие попапа */
@@ -82,13 +80,13 @@ function removePopUp(modal) {
 function clickEditProfileOpenPopUp() {
   openPopup(profilePopUp);
   setPopupInputValue();
-  enableValidation(selectorsValidation);
+  formValidatorProfile.enableValidation();
 };
 
 /* Активировать попап Добавление новой карточки. (Добавление соответсвующего класса) */
 function clickAddNewCardOpenPopUp() {
   openPopup(popUpAddCard);
-  enableValidation(selectorsValidation);
+  formValidatorCard.enableValidation();
 };
 
 // функция которая заполняет поля ввода при открытии попапа
@@ -110,77 +108,11 @@ function handleProfileFormSubmit(evt) {
   removePopUp(profilePopUp);
 }
 
-//Функция переключения соответсвующих классов Карточек при клике по like
-function clickLikeCard(event) {
-  event.target.classList.toggle(selectorsCards.buttonLikeActiveCard);
-};
-
-//функция обработки массива заготовленных карточек
-function createInitialCards() {
-  initialCards.map(createNewCard);
-}
-createInitialCards();
-
-//Функция для обработки карточки
-function createCard(item) {
-  const cardElement = templateCard.cloneNode(true);
-  const imgCard = cardElement.querySelector(selectorsCards.imgCard);
-  const titleCard = cardElement.querySelector(selectorsCards.titleCard);
-  const buttonDeleteCard = cardElement.querySelector(selectorsCards.buttonDeleteCard);
-  const buttonLikeCard = cardElement.querySelector(selectorsCards.buttonLikeCard);
-
-  buttonDeleteCard.addEventListener('click', function () {
-    cardElement.remove();
-  });
-
-  buttonLikeCard.addEventListener('click', clickLikeCard);
-
-  imgCard.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    openPopup(popUpViewCard);
-    popUpViewImg.src = imgCard.src;
-    popUpViewCardTitle.textContent = imgCard.alt;
-    popUpViewImg.alt = imgCard.alt;
-  })
-
-  imgCard.src = item.link;
-  imgCard.alt = item.name;
-  titleCard.textContent = item.name;
-  return cardElement;
-}
-
-//добавление карточки
-function createNewCard(item) {
-  const newCard = createCard(item);
-  sectionCards.prepend(newCard);
-}
-
-//добавление карточки от пользователя
-function inputNewCardFromUser() {
-  const inputNameCard = document.querySelector(selectorsInput.inputNameCard);
-  const inputUrlCard = document.querySelector(selectorsInput.inputUrlCard);
-
-  formAddCard.addEventListener('submit', function (evt) {
-
-    evt.preventDefault();
-
-    const name = inputNameCard.value;
-    const link = inputUrlCard.value;
-    const arrNameLink = {
-      name,
-      link
-    };
-    evt.target.reset()
-    createNewCard(arrNameLink);
-    removePopUp(popUpAddCard);
-  });
-}
-inputNewCardFromUser();
-
 //Функиця закрытия Попапа по ESC
-const closePopUpPressKeyEsc = function (event) {
+export const closePopUpPressKeyEsc = function (event) {
   if (event.key === 'Escape') {
     removePopUp(document.querySelector(`.${selectorsPopUp.popUpActive}`));
+    document.removeEventListener('keyup', closePopUpPressKeyEsc);
   }
 }
 
@@ -205,3 +137,19 @@ profilePopUp.addEventListener('submit', handleProfileFormSubmit);
 popUp.forEach((item) => {
   item.addEventListener('click', closePopupClickOverlay);
 });
+
+
+initialCards.forEach((item) => {
+  const card = new Card(selectorsCards.templateCard, item.name, item.link);
+  const newCard = card.generateCard();
+
+  document.querySelector(selectorsCards.sectionCards).append(newCard);
+})
+
+popUpAddCard.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const card = new Card(selectorsCards.templateCard);
+  const newCard = card._addNewCardFromUser();
+
+  document.querySelector(selectorsCards.sectionCards).prepend(newCard);
+})

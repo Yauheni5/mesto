@@ -44,13 +44,13 @@
     </article>
   </template>
   <div class="pop-up pop-up_edit-profile">
-    <form class="pop-up__container pop-up__form" name="form-edit-profile" novalidate>
+    <form class="pop-up__container pop-up__form pop-up__form-edit-profile" name="form-edit-profile" novalidate>
       <h2 class="pop-up__title">Редактировать профиль</h2>
       <input type="text" placeholder="Имя Фамилия" class="pop-up__input pop-up__input_user-name" name="name-input"
-        value="Жак-Ив Кусто" required minlength="2" maxlength="40">
+        required minlength="2" maxlength="40">
       <span class="name-input-error pop-up__input-error"></span>
       <input type="text" placeholder="О себе" class="pop-up__input pop-up__input_user-job" name="job-input" required
-        minlength="2" maxlength="200" value="Исследователь океана">
+        minlength="2" maxlength="200">
       <span class="job-input-error pop-up__input-error"></span>
       <button type="submit" class="pop-up__button pop-up__button-save">Сохранить</button>
       <button type="button" class="pop-up__close-icon"></button>
@@ -76,10 +76,7 @@
       <h2 class="pop-up__title-view-img"></h2>
     </form>
   </div>
-  <script src="./scripts/cards.js" defer></script>
-  <script src="./scripts/validate.js" defer></script>
-  <script src="./scripts/index.js" defer></script>
-
+  <script type="module" src="./scripts/index.js" defer></script>
 </body>
 
 </html>
