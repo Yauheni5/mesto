@@ -28,6 +28,7 @@ export {
 export class Card {
   /**
    * Класс Карточка
+   * @param {string} selectorTemplate cелектор template-элемента;
    * @param {String} name Название места
    * @param {LinkStyle} link Cсылка на картинку места
    * */
