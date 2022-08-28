@@ -1,7 +1,4 @@
 'use strict'
-import {
-  closePopUpPressKeyEsc
-} from './index.js';
 
 const selectorsCards = {
   templateCard: '#template-card',
@@ -33,11 +30,12 @@ export class Card {
    * @param {LinkStyle} link Cсылка на картинку места
    * */
 
-  constructor(selectorTemplate, name, link) {
+  constructor(selectorTemplate, name, link, handleCardClick) {
     this._title = name;
     this._alt = name;
     this._src = link;
     this._selectorTemplate = selectorTemplate;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate = () => {
@@ -47,33 +45,19 @@ export class Card {
 
   generateCard = () => {
     this._element = this._getTemplate();
+    this._imgCard = this._element.querySelector(selectorsCards.imgCard);
     this._element.querySelector(selectorsCards.titleCard).textContent = this._title;
-    this._element.querySelector(selectorsCards.imgCard).alt = this._title;
-    this._element.querySelector(selectorsCards.imgCard).src = this._src;
+    this._imgCard.alt = this._title;
+    this._imgCard.src = this._src;
+    this._buttonLikeCard = this._element.querySelector(selectorsCards.buttonLikeCard);
     this._setEventListeners();
-    return this._element;
-  }
-
-  _addNewCardFromUser = () => {
-    this._title = document.querySelector(selectorsCards.inputNameCard).value;;
-    this._src = document.querySelector(selectorsCards.inputUrlCard).value;;
-    this.generateCard();
-    document.querySelector('.pop-up_active').remove();
     return this._element;
   }
 
   _setEventListeners = () => {
     this._element.querySelector(selectorsCards.buttonDeleteCard).addEventListener('click', () => this._deleteCardClick());
-    this._element.querySelector(selectorsCards.buttonLikeCard).addEventListener('click', () => this._likeCardClick());
-    this._element.querySelector(selectorsCards.imgCard).addEventListener('click', () => this._viewCard());
-  }
-
-  _viewCard = () => {
-    document.querySelector(selectorsCards.popUpViewCard).classList.add('pop-up_active');
-    document.querySelector(selectorsCards.popUpViewCard).src = this._src;
-    document.querySelector(selectorsCards.popUpViewCardTitle).textContent = this._title;
-    document.querySelector(selectorsCards.popUpViewImg).alt = this._alt;
-    document.addEventListener('keyup', closePopUpPressKeyEsc);
+    this._buttonLikeCard.addEventListener('click', () => this._likeCardClick());
+    this._imgCard.addEventListener('click', () => this._handleCardClick(this._title, this._src));
   }
 
   _deleteCardClick() {
@@ -81,6 +65,6 @@ export class Card {
   }
 
   _likeCardClick() {
-    this._element.querySelector(selectorsCards.buttonLikeCard).classList.toggle(selectorsCards.buttonLikeActiveCard);
+    this._buttonLikeCard.classList.toggle(selectorsCards.buttonLikeActiveCard);
   }
 }

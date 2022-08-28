@@ -2,12 +2,12 @@
 import {
   selectorsCards,
   Card
-} from "./cards.js";
+} from "./card.js";
 
 import {
   FormValidator,
   selectorsValidation
-} from "./validate.js";
+} from "./FormValidator.js";
 
 import {
   initialCards
@@ -42,7 +42,7 @@ const selectorsInput = {
 
 }
 
-const popUp = document.querySelectorAll(selectorsPopUp.popUp);
+const popUps = document.querySelectorAll(selectorsPopUp.popUp);
 
 const buttonAddCard = document.querySelector(selectorsPopUp.buttonAddCard);
 const popUpAddCard = document.querySelector(selectorsPopUp.popUpAddCard);
@@ -54,11 +54,23 @@ const inputJobUser = document.querySelector(selectorsInput.inputJobUser);
 const nameUser = document.querySelector(selectorsPopUpProfile.nameUser);
 const jobUser = document.querySelector(selectorsPopUpProfile.jobUser);
 
+const inputNameCard = document.querySelector(selectorsCards.inputNameCard);
+const inputUrlCard = document.querySelector(selectorsCards.inputUrlCard);
+
 const popUpButtonSave = document.querySelector(selectorsPopUp.popUpButtonSave);
 const formAddCard = document.querySelector(selectorsCards.formAddCard);
 const formEditProfile = document.querySelector(selectorsPopUpProfile.formEditProfile);
+
+const popUpViewCard = document.querySelector(selectorsCards.popUpViewCard);
+const popUpViewImg = document.querySelector(selectorsCards.popUpViewImg);
+const popUpViewCardTitle = document.querySelector(selectorsCards.popUpViewCardTitle)
+
 const formValidatorCard = new FormValidator(formAddCard, selectorsValidation);
+formValidatorCard.enableValidation();
+
 const formValidatorProfile = new FormValidator(formEditProfile, selectorsValidation);
+formValidatorProfile.enableValidation();
+
 //                    ФУНКЦИИ
 
 
@@ -80,13 +92,21 @@ function removePopUp(modal) {
 function clickEditProfileOpenPopUp() {
   openPopup(profilePopUp);
   setPopupInputValue();
-  formValidatorProfile.enableValidation();
+  formValidatorProfile.resetValidation();
 };
+
+const addCardFromUser = () => {
+  const newCardArr = {}
+  newCardArr.name = document.querySelector(selectorsCards.inputNameCard).value;
+  newCardArr.link = document.querySelector(selectorsCards.inputUrlCard).value;
+  removePopUp(popUpAddCard);
+  return newCardArr;
+}
+
 
 /* Активировать попап Добавление новой карточки. (Добавление соответсвующего класса) */
 function clickAddNewCardOpenPopUp() {
   openPopup(popUpAddCard);
-  formValidatorCard.enableValidation();
 };
 
 // функция которая заполняет поля ввода при открытии попапа
@@ -108,8 +128,15 @@ function handleProfileFormSubmit(evt) {
   removePopUp(profilePopUp);
 }
 
+function handleCardClick(name, link) {
+  popUpViewImg.src = link;
+  popUpViewCardTitle.textContent = name;
+  popUpViewImg.alt = name;
+  openPopup(popUpViewCard);
+}
+
 //Функиця закрытия Попапа по ESC
-export const closePopUpPressKeyEsc = function (event) {
+const closePopUpPressKeyEsc = function (event) {
   if (event.key === 'Escape') {
     removePopUp(document.querySelector(`.${selectorsPopUp.popUpActive}`));
     document.removeEventListener('keyup', closePopUpPressKeyEsc);
@@ -123,6 +150,12 @@ function closePopupClickOverlay(event) {
   };
 }
 
+function createCard(item) {
+  const card = new Card(selectorsCards.templateCard, item.name, item.link, handleCardClick);
+  const newCard = card.generateCard();
+  return newCard
+}
+
 // Открывает попап по клику на Редактирование
 buttonEditProfile.addEventListener('click', clickEditProfileOpenPopUp);
 
@@ -134,22 +167,15 @@ profilePopUp.addEventListener('submit', handleProfileFormSubmit);
 
 // Закрывает активный попап по клику вне области попапа и по кнопке Esc
 
-popUp.forEach((item) => {
+popUps.forEach((item) => {
   item.addEventListener('click', closePopupClickOverlay);
 });
 
-
 initialCards.forEach((item) => {
-  const card = new Card(selectorsCards.templateCard, item.name, item.link);
-  const newCard = card.generateCard();
-
-  document.querySelector(selectorsCards.sectionCards).append(newCard);
+  document.querySelector(selectorsCards.sectionCards).append(createCard(item));
 })
 
 popUpAddCard.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const card = new Card(selectorsCards.templateCard);
-  const newCard = card._addNewCardFromUser();
-
-  document.querySelector(selectorsCards.sectionCards).prepend(newCard);
+  document.querySelector(selectorsCards.sectionCards).prepend(createCard(addCardFromUser()));
 })
