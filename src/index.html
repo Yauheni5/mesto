@@ -8,16 +8,15 @@
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
   <title>Mesto</title>
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./styles/index.css">
 </head>
 
 <body class="page">
   <header class="header">
-    <img src="./images/logoMesto.svg" alt="Логотип Место" class="logo">
+    <img src="<%=require('./images/logoMesto.svg')%>" alt="Логотип Место" class="logo">
   </header>
   <main class="content">
     <section class="profile">
-      <img src="./images/avatarKusto.jpg" alt="Аватар пользователя" class="profile__avatar">
+      <img src="<%=require('./images/avatarKusto.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
       <div class="profile__info">
         <h1 class="profile__user">Жак-Ив Кусто</h1>
         <p class="profile__user-job">Исследователь океана</p>
@@ -72,11 +71,10 @@
   <div class="pop-up pop-up_view-card">
     <form class="pop-up__container pop-up__container_view-card" novalidate>
       <button type="button" class="pop-up__close-icon"></button>
-      <img src="./images/brest.jpg" alt="#" class="pop-up__view-img">
+      <img src="#" alt="#" class="pop-up__view-img">
       <h2 class="pop-up__title-view-img"></h2>
     </form>
   </div>
-  <script type="module" src="./scripts/index.js" defer></script>
 </body>
 
 </html>
