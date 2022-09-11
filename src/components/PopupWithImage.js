@@ -5,7 +5,7 @@ import {
 } from "./Popup.js";
 import {
   selectorsCards
-} from "./constants.js";
+} from "../utils/constants.js";
 
 export class PopupWithImage extends Popup {
   constructor(selector) {

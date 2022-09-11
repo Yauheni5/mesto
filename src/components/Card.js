@@ -2,7 +2,7 @@
 
 import {
   selectorsCards
-} from "./constants.js";
+} from "../utils/constants.js";
 
 export class Card {
   constructor(item, selectorTemplate, handleCardClick) {
@@ -28,14 +28,14 @@ export class Card {
     return this._element;
   }
   _setEventListeners = () => {
-    this._element.querySelector(selectorsCards.buttonDeleteCard).addEventListener('click', () => this._deleteCardClick());
-    this._buttonLikeCard.addEventListener('click', () => this._likeCardClick());
+    this._element.querySelector(selectorsCards.buttonDeleteCard).addEventListener('click', () => this.__handleCardDelete());
+    this._buttonLikeCard.addEventListener('click', () => this._handleLike());
     this._imgCard.addEventListener('click', () => this._handleCardClick(this._item));
   }
-  _deleteCardClick = () => {
+  _handleCardDelete = () => {
     this._element.remove();
   }
-  _likeCardClick = () => {
+  _handleLike = () => {
     this._buttonLikeCard.classList.toggle(selectorsCards.buttonLikeActiveCard);
   }
 }

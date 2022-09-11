@@ -1,9 +1,8 @@
 'use strict'
 import {
-  selectors,
   selectorsCards,
   selectorsPopup
-} from "./constants.js";
+} from "../utils/constants.js";
 export class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(`${popupSelector}`);
@@ -11,6 +10,7 @@ export class Popup {
   }
   open() {
     this._popup.classList.add(selectorsPopup.popupActive);
+    document.addEventListener('keyup', this._handleEscClose);
   }
   close() {
     this._popup.classList.remove(selectorsPopup.popupActive);
@@ -29,6 +29,5 @@ export class Popup {
   }
   setEventListeners() {
     this._popup.addEventListener('click', this._handleClickIconClose);
-    document.addEventListener('keyup', this._handleEscClose);
   }
 }

@@ -7,19 +7,14 @@ export class UserInfo {
     this._userName = document.querySelector(selectorsUser.name);
     this._userJob = document.querySelector(selectorsUser.about);
   }
-  getUserInfo() {
-    console.log({
-      name: document.querySelector(this._selectorsUser.name).textContent,
-      about: document.querySelector(this._selectorsUser.about).textContent
-    })
+  getUserInfo = () => {
     return {
-      name: document.querySelector(this._selectorsUser.name).textContent,
-      about: document.querySelector(this._selectorsUser.about).textContent
+      'name-input': this._userName.textContent,
+      'job-input': this._userJob.textContent
     }
   }
 
   setUserInfo = (values) => {
-    console.log(values)
     this._userName.textContent = values['name-input'];
     this._userJob.textContent = values['job-input'];
   }

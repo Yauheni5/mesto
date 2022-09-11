@@ -4,25 +4,25 @@ import {
   selectorsCards,
   selectorsUser,
   selectorsValidation
-} from '../scripts/constants.js';
+} from '../utils/constants.js';
 import {
   Card
-} from '../scripts/Card.js';
+} from '../components/Card.js';
 import {
   PopupWithForm
-} from '../scripts/PopupWithForm.js';
+} from '../components/PopupWithForm.js';
 import {
   PopupWithImage
-} from '../scripts/PopupWithImage.js';
+} from '../components/PopupWithImage.js';
 import {
   Section
-} from '../scripts/Section.js';
+} from '../components/Section.js';
 import {
   UserInfo
-} from '../scripts/UserInfo.js';
+} from '../components/UserInfo.js';
 import {
   FormValidator
-} from '../scripts/FormValidator.js';
+} from '../components/FormValidator.js';
 import './index.css';
 
 const profileButtonEdit = document.querySelector(selectors.profileButtonEdit)
@@ -67,16 +67,16 @@ buttonAddNewCard.addEventListener('click', () => {
 
 function openImage(item) {
   popUpWithImage.open(item.link, item.name);
-  popUpWithImage.setEventListeners();
 }
 
 const popUpWithImage = new PopupWithImage(selectorsCards.popUpViewCard);
+popUpWithImage.setEventListeners();
 
 const profileInfo = new UserInfo({
   selectorsUser
 });
-const profilePopUp = new PopupWithForm(selectors.popUpEditProfile, () => {
-  profileInfo.setUserInfo(profilePopUp._getInputValues());
+const profilePopUp = new PopupWithForm(selectors.popUpEditProfile, (inputValues) => {
+  profileInfo.setUserInfo(inputValues);
   profilePopUp.close();
 });
 profilePopUp.setEventListeners();
@@ -84,6 +84,6 @@ profilePopUp.setEventListeners();
 profileButtonEdit.addEventListener('click', () => {
   profilePopUp.open();
   const userInfo = profileInfo.getUserInfo();
-  profilePopUp._setInputValues(userInfo);
+  profilePopUp.setInputValues(userInfo);
   profileValidator.resetValidation();
 });

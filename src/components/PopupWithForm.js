@@ -5,7 +5,7 @@ import {
 } from "./Popup.js";
 import {
   selectors
-} from "./constants.js";
+} from "../utils/constants.js";
 
 export class PopupWithForm extends Popup {
   constructor(selectorName, submitHandler) {
@@ -23,15 +23,16 @@ export class PopupWithForm extends Popup {
   _getInputValues() {
     this._formValues = {};
     this._inputList.forEach(input => {
-      //this._formValues[input.name] = input.value;
       this._formValues[input.name] = input.value;
 
     });
     return this._formValues;
   }
-  _setInputValues(values) {
-    this._inputName.value = values.name;
-    this._inputUserInfo.value = values.about;
+  setInputValues(values) {
+    this._inputList.forEach((input) => {
+      // тут вставляем в `value` инпута данные из объекта по атрибуту `name` этого инпута
+      input.value = values[input.name];
+    });
   }
   setEventListeners() {
     super.setEventListeners();
