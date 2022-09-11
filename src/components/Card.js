@@ -28,7 +28,7 @@ export class Card {
     return this._element;
   }
   _setEventListeners = () => {
-    this._element.querySelector(selectorsCards.buttonDeleteCard).addEventListener('click', () => this.__handleCardDelete());
+    this._element.querySelector(selectorsCards.buttonDeleteCard).addEventListener('click', () => this._handleCardDelete());
     this._buttonLikeCard.addEventListener('click', () => this._handleLike());
     this._imgCard.addEventListener('click', () => this._handleCardClick(this._item));
   }
