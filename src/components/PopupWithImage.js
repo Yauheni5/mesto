@@ -10,7 +10,6 @@ import {
 export class PopupWithImage extends Popup {
   constructor(selector) {
     super(selector);
-
     this._popupImage = this._popup.querySelector(selectorsCards.popUpViewImg);
     this._imageName = this._popup.querySelector(selectorsCards.popUpViewCardTitle);
   }

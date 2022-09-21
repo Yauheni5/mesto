@@ -1,0 +1,23 @@
+.profile__img-wrapper {
+  transition: opacity .5s linear;
+  cursor: pointer;
+}
+
+.profile__img-wrapper:hover {
+  opacity: .8;
+}
+
+.profile__img-wrapper:hover::after {
+  content: url('../../../images/editPencil.svg');
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  left: 50px;
+  top: 85px;
+}
+
+@media (max-width: 620px) {
+  .profile__img-wrapper:hover::after {
+    left: 48%;
+  }
+}

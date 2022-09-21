@@ -4,8 +4,9 @@ export class UserInfo {
     selectorsUser
   }) {
     this._selectorsUser = selectorsUser;
-    this._userName = document.querySelector(selectorsUser.name);
-    this._userJob = document.querySelector(selectorsUser.about);
+    this._userName = document.querySelector(this._selectorsUser.name);
+    this._userJob = document.querySelector(this._selectorsUser.about);
+    this._userAvatar = document.querySelector(this._selectorsUser.avatar)
   }
   getUserInfo = () => {
     return {
@@ -15,7 +16,11 @@ export class UserInfo {
   }
 
   setUserInfo = (values) => {
-    this._userName.textContent = values['name-input'];
-    this._userJob.textContent = values['job-input'];
+    this._userName.textContent = values['name-input'] || values['name'];
+    this._userJob.textContent = values['job-input'] || values['about'];
+  }
+
+  setUserAvatar = (data) => {
+    this._userAvatar.src = data.avatar || data['url-avatar-input'];
   }
 }

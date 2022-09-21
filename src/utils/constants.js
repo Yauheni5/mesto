@@ -35,7 +35,9 @@ export const initialCards = [{
 
 export const selectorsUser = {
   name: '.profile__user',
-  about: '.profile__user-job'
+  about: '.profile__user-job',
+  avatar: '.profile__avatar',
+  avatarWrapper: '.profile__img-wrapper'
 }
 
 export const selectors = {
@@ -46,13 +48,17 @@ export const selectors = {
   profileButtonEdit: '.profile__button_edit',
   popUpAddCard: '.pop-up_add-card',
   popUpForm: '.pop-up__form',
+  popUpButtonSave: '.pop-up__button-save',
   popUpInput: '.pop-up__input',
   popUpInputUserName: '.pop-up__input_user-name',
   popUpInputUserInfo: '.pop-up__input_user-job',
   userNameInput: 'name-input',
   userInfoInput: 'job-input',
   cardNameInput: 'name-card-input',
-  cardLinkInput: 'url-input'
+  cardLinkInput: 'url-input',
+  popUpAvatar: '.pop-up_edit-avatar',
+  formAvatarProfile: '.pop-up__form-edit-avatar',
+  popupConfirm: '.pop-up_delete-card'
 }
 
 export const selectorsPopup = {
@@ -68,7 +74,9 @@ export const selectorsCards = {
   imgCard: '.card__image',
   titleCard: '.card__title',
   buttonDeleteCard: '.card__button-delete',
+  buttonDeleteCardInactive: 'card__button-delete_inactive',
   buttonLikeCard: '.card__button-like',
+  counterLike: '.card__like-counter',
   buttonLikeActiveCard: 'card__button-like_active',
   formAddCard: '.pop-up__form-add-card',
   popUpViewCard: '.pop-up_view-card',
