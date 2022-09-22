@@ -1,6 +1,5 @@
 import {
   selectors,
-  initialCards,
   selectorsCards,
   selectorsUser,
   selectorsValidation
@@ -39,6 +38,8 @@ const formEditProfile = document.querySelector(selectors.formEditProfile);
 const formAddCard = document.querySelector(selectors.formAddCard);
 const formEditAvatar = document.querySelector(selectors.formAvatarProfile);
 
+let userID = null;
+
 const profileValidator = new FormValidator(formEditProfile, selectorsValidation);
 profileValidator.enableValidation();
 
@@ -52,120 +53,143 @@ const profileInfo = new UserInfo({
   selectorsUser
 });
 
-const option = {
+const options = {
   url: 'https://mesto.nomoreparties.co/v1/cohort-51',
   headers: {
     authorization: 'd4c4166d-7da1-41e5-9c12-6ada905232af',
     'Content-Type': 'application/json'
   }
 }
-let userID = null;
-const dataApi = new Api(option)
-dataApi.getUserInfoApi()
-  .then(data => {
-    profileInfo.setUserInfo(data);
-    profileInfo.setUserAvatar(data);
-    userID = data._id;
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
 
-
-function createCard(item) {
-  const newCard = new Card(item, selectorsCards.templateCard, openImage, handleCardDelete, dataApi, userID)
+function createCard(dataCard) {
+  const newCard = new Card(dataCard, selectorsCards.templateCard, openImage, handleCardDelete, handleLikeCard, userID)
   return newCard.generateCard();
 }
 
-let closeElement = {};
+const dataApi = new Api(options);
 
-function handleCardDelete(element, idCardDelete) {
-  popupConfirmDelete.open();
-  popupConfirmDelete.setEventListeners();
-  closeElement.element = element;
-  closeElement.idCardDelete = idCardDelete;
-  return closeElement
-}
+const cardList = new Section({
+    renderer: (item) => {
+      const newCardApi = createCard({
+        name: item.name,
+        link: item.link,
+        idOwner: item.owner._id,
+        idCard: item._id,
+        likes: item.likes
+      });
+      cardList.addItem(newCardApi);
+    }
+  },
+  selectorsCards.sectionCards
+);
 
-/* const popupConfirmDelete = new PopupWithForm(selectors.popupConfirm, () => {
-  popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(closeElement.idCardDelete)
-    .finally(() => popupConfirmDelete.renderLoading(false))
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
-  popupConfirmDelete.close();
-  closeElement.element.remove();
-}); */
-
-const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, () => {
-  popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(closeElement.idCardDelete)
-    .finally(() => popupConfirmDelete.renderLoading(false))
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
-  popupConfirmDelete.close();
-  closeElement.element.remove();
+const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, (idCardDelete) => {
+  handleConfirmCardDelete(idCardDelete)
 });
 
-const cardsList = new Section({
-  items: createCard,
-  renderer: (item) => createCard(item)
-}, selectorsCards.sectionCards)
+const popUpWithImage = new PopupWithImage(selectorsCards.popUpViewCard);
 
+function newPopupWithForm(selectors, popUp, apiMethod) {
+  popUp = new PopupWithForm(selectors, (inputValues) => {
+    popUp.renderLoading(true);
+    dataApi[apiMethod](inputValues)
+      .then(() => getDataAllPromise())
+      .then(popUp.close())
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+      .finally(() => {
+        popUp.renderLoading(false);
+      });
+  });
+  return popUp
+}
+const profilePopUp = newPopupWithForm(selectors.popUpEditProfile, profilePopUp, 'setUserInfoApi');
+const avatarPopUp = newPopupWithForm(selectors.popUpAvatar, avatarPopUp, 'setUserAvatarApi');
 const addCardPopUp = new PopupWithForm(selectors.popUpAddCard, (data) => {
   addCardPopUp.renderLoading(true);
   const newData = {
     name: data[selectors.cardNameInput],
     link: data[selectors.cardLinkInput]
   };
-  const card = createCard(newData);
   dataApi.addCard(newData)
-    .finally(() => addCardPopUp.renderLoading(false));
-  addCardPopUp.close();
-  cardsList.prependItem(card);
+    .then(() => {
+      getDataAllPromise()
+    })
+    .then(() => addCardPopUp.close())
+    .finally(() => {
+      addCardPopUp.renderLoading(false);
+    });
 });
 
-addCardPopUp.setEventListeners();
+function getDataAllPromise() {
+  dataApi.getAllPromise()
+    .then(([data, dataCards]) => {
+      profileInfo.setUserInfo(data);
+      profileInfo.setUserAvatar(data);
+      userID = data._id;
+      cardList.renderItems(dataCards);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+getDataAllPromise();
+
+function handleLikeCard(button, idCard, counterLike) {
+  if (button.classList.contains(selectorsCards.buttonLikeActiveCard)) {
+    dataApi.dislikesCard(idCard)
+      .then(data => {
+        button.classList.remove(selectorsCards.buttonLikeActiveCard);
+        counterLike.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  } else {
+    dataApi.likesCard(idCard)
+      .then(data => {
+        button.classList.add(selectorsCards.buttonLikeActiveCard);
+        counterLike.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+}
+
+function handleCardDelete(idCardDelete) {
+  popupConfirmDelete.open();
+  popupConfirmDelete.setEventListeners(idCardDelete);
+}
+
+function handleConfirmCardDelete(idCardDelete) {
+  popupConfirmDelete.renderLoading(true);
+  dataApi.deleteCard(idCardDelete)
+    .then(() => getDataAllPromise())
+    .finally(() => {
+      popupConfirmDelete.close();
+      popupConfirmDelete.renderLoading(false)
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+}
+
+function openImage(item) {
+  popUpWithImage.open(item.link, item.name);
+}
 
 buttonAddNewCard.addEventListener('click', () => {
   addCardPopUp.open();
   cardValidator.resetValidation();
 });
 
-function openImage(item) {
-  popUpWithImage.open(item.link, item.name);
-}
-
-const popUpWithImage = new PopupWithImage(selectorsCards.popUpViewCard);
-popUpWithImage.setEventListeners();
-
-const profilePopUp = new PopupWithForm(selectors.popUpEditProfile, (inputValues) => {
-  profilePopUp.renderLoading(true);
-  dataApi.setUserInfoApi(inputValues)
-    .finally(() => profilePopUp.renderLoading(false));
-  profileInfo.setUserInfo(inputValues);
-  profilePopUp.close();
-});
-profilePopUp.setEventListeners();
-
 profileButtonEdit.addEventListener('click', () => {
-  profilePopUp.open();
   const userInfo = profileInfo.getUserInfo();
   profilePopUp.setInputValues(userInfo);
   profileValidator.resetValidation();
-});
-
-const avatarPopUp = new PopupWithForm(selectors.popUpAvatar, (inputValues) => {
-  avatarPopUp.renderLoading(true)
-  dataApi.setUserAvatarApi(inputValues)
-    .finally(() => popupConfirmDelete.renderLoading(false))
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
-  profileInfo.setUserAvatar(inputValues);
-  avatarPopUp.close();
+  profilePopUp.open();
 });
 
 userAvatar.addEventListener('click', () => {
@@ -173,26 +197,7 @@ userAvatar.addEventListener('click', () => {
   avatarProfileValidator.resetValidation()
 })
 avatarPopUp.setEventListeners();
-
-dataApi.getInitialCards()
-  .then(cards => {
-    const cardsListFromApi = new Section({
-        items: cards,
-        renderer: (item) => {
-          const newCardApi = createCard({
-            name: item.name,
-            link: item.link,
-            idOwner: item.owner._id,
-            idCard: item._id,
-            likes: item.likes
-          });
-          cardsListFromApi.addItem(newCardApi);
-        }
-      },
-      selectorsCards.sectionCards
-    );
-    cardsListFromApi.renderItems(cards);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+addCardPopUp.setEventListeners();
+profilePopUp.setEventListeners();
+popupConfirmDelete.setEventListeners();
+popUpWithImage.setEventListeners();

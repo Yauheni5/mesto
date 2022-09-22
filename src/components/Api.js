@@ -12,11 +12,11 @@ export class Api {
   }
 
   getUserInfoApi() {
-    return fetch(this.url + `/users/me`, {
+    return fetch(`${this.url}/users/me`, {
         method: 'GET',
         headers: this._headers,
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   getInitialCards() {
@@ -24,7 +24,7 @@ export class Api {
         method: 'GET',
         headers: this._headers
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   setUserInfoApi(userData) {
@@ -36,7 +36,7 @@ export class Api {
           about: userData['job-input']
         })
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   setUserAvatarApi(userData) {
@@ -47,7 +47,7 @@ export class Api {
           avatar: userData['url-avatar-input']
         })
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   addCard(data) {
@@ -59,7 +59,7 @@ export class Api {
           link: data.link
         })
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   deleteCard(idCardDelete) {
@@ -67,7 +67,7 @@ export class Api {
         method: 'DELETE',
         headers: this._headers,
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   likesCard(idCard) {
@@ -75,7 +75,7 @@ export class Api {
         method: 'PUT',
         headers: this._headers,
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
   }
 
   dislikesCard(idCard) {
@@ -83,6 +83,9 @@ export class Api {
         method: 'DELETE',
         headers: this._headers,
       })
-      .then((res) => this._checkResponseError(res))
+      .then(this._checkResponseError)
+  }
+  getAllPromise() {
+    return Promise.all([this.getUserInfoApi(), this.getInitialCards()])
   }
 }

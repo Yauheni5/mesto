@@ -13,8 +13,9 @@ export class PopupWithConfirmation extends Popup {
     this.form = this._popup.querySelector(selectors.popUpForm);
     this._popUpButtonSave = this._popup.querySelector(selectors.popUpButtonSave);
     this._popUpButtonTextContent = this._popUpButtonSave.textContent;
-    this.submitHandler = submitHandler
+    this.submitHandler = submitHandler;
   }
+
   renderLoading(isLoading) {
     if (isLoading) {
       this._popUpButtonSave.textContent = 'Сохранение...';
@@ -23,12 +24,11 @@ export class PopupWithConfirmation extends Popup {
     }
   }
 
-  setEventListeners() {
+  setEventListeners(idCardDelete) {
     super.setEventListeners();
     this.form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this.submitHandler();
+      this.submitHandler(idCardDelete);
     });
   }
-
 }

@@ -37,7 +37,10 @@ export const selectorsUser = {
   name: '.profile__user',
   about: '.profile__user-job',
   avatar: '.profile__avatar',
-  avatarWrapper: '.profile__img-wrapper'
+  avatarWrapper: '.profile__img-wrapper',
+  userNameInput: 'name-input',
+  jobInputName: 'job-input',
+  avatarInputName: 'url-avatar-input'
 }
 
 export const selectors = {
