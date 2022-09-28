@@ -21,9 +21,6 @@ export class UserInfo {
   setUserInfo = (values) => {
     this._userName.textContent = values[this._nameInputName] || values['name'];
     this._userJob.textContent = values[this._jobInputName] || values['about'];
-  }
-
-  setUserAvatar = (data) => {
-    this._userAvatar.src = data.avatar || data[this._avatarInputName];
+    this._userAvatar.src = values.avatar || values[this._avatarInputName];
   }
 }

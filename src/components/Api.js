@@ -70,21 +70,30 @@ export class Api {
       .then(this._checkResponseError)
   }
 
-  likesCard(idCard) {
-    return fetch(`${this.url}/cards/${idCard}/likes`, {
-        method: 'PUT',
+  handleToggleLikeApi(dataCard) {
+    console.log(dataCard)
+    return fetch(`${this.url}/cards/${dataCard._item.id}/likes`, {
+        method: dataCard.isLiked() ? "DELETE" : "PUT",
         headers: this._headers,
       })
       .then(this._checkResponseError)
   }
+  /*
+    likesCard(idCard) {
+      return fetch(`${this.url}/cards/${idCard}/likes`, {
+          method: 'PUT',
+          headers: this._headers,
+        })
+        .then(this._checkResponseError)
+    }
 
-  dislikesCard(idCard) {
-    return fetch(`${this.url}/cards/${idCard}/likes`, {
-        method: 'DELETE',
-        headers: this._headers,
-      })
-      .then(this._checkResponseError)
-  }
+    dislikesCard(idCard) {
+      return fetch(`${this.url}/cards/${idCard}/likes`, {
+          method: 'DELETE',
+          headers: this._headers,
+        })
+        .then(this._checkResponseError)
+    } */
   getAllPromise() {
     return Promise.all([this.getUserInfoApi(), this.getInitialCards()])
   }

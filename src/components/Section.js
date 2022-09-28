@@ -2,8 +2,9 @@
 
 export class Section {
   constructor({
-    renderer
-  }, containerSelector) {
+    renderer,
+    containerSelector
+  }) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
@@ -23,7 +24,7 @@ export class Section {
   renderItems(cards) {
     this.clear();
     cards.forEach(item => {
-      this._renderer(item);
+      return this._renderer(item);
     });
   }
 }

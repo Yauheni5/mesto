@@ -38,6 +38,14 @@ const formEditProfile = document.querySelector(selectors.formEditProfile);
 const formAddCard = document.querySelector(selectors.formAddCard);
 const formEditAvatar = document.querySelector(selectors.formAvatarProfile);
 
+const options = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-51',
+  headers: {
+    authorization: 'd4c4166d-7da1-41e5-9c12-6ada905232af',
+    'Content-Type': 'application/json'
+  }
+}
+
 let userID = null;
 
 const profileValidator = new FormValidator(formEditProfile, selectorsValidation);
@@ -53,35 +61,33 @@ const profileInfo = new UserInfo({
   selectorsUser
 });
 
-const options = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-51',
-  headers: {
-    authorization: 'd4c4166d-7da1-41e5-9c12-6ada905232af',
-    'Content-Type': 'application/json'
-  }
-}
-
-function createCard(dataCard) {
-  const newCard = new Card(dataCard, selectorsCards.templateCard, openImage, handleCardDelete, handleLikeCard, userID)
-  return newCard.generateCard();
-}
-
 const dataApi = new Api(options);
 
 const cardList = new Section({
-    renderer: (item) => {
-      const newCardApi = createCard({
-        name: item.name,
-        link: item.link,
-        idOwner: item.owner._id,
-        idCard: item._id,
-        likes: item.likes
-      });
-      cardList.addItem(newCardApi);
-    }
+  renderer: (item) => {
+    const newCardApi = createCard({
+      name: item.name,
+      link: item.link,
+      idOwner: item.owner._id,
+      id: item._id,
+      likes: item.likes
+    });
+    cardList.addItem(newCardApi);
   },
-  selectorsCards.sectionCards
-);
+  containerSelector: selectorsCards.sectionCards
+});
+
+function createCard(dataCard) {
+  const newCard = new Card({
+    item: dataCard,
+    selectorTemplate: selectorsCards.templateCard,
+    handleCardClick: openImage,
+    handleCardDelete: handleCardDelete,
+    handleLikeCard: handleLikeCard,
+    userID: userID
+  })
+  return newCard.generateCard();
+}
 
 const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, (idCardDelete) => {
   handleConfirmCardDelete(idCardDelete)
@@ -89,23 +95,24 @@ const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, (id
 
 const popUpWithImage = new PopupWithImage(selectorsCards.popUpViewCard);
 
-function newPopupWithForm(selectors, popUp, apiMethod) {
-  popUp = new PopupWithForm(selectors, (inputValues) => {
+function getPopupWithForm(selectors, popUp, apiMethod, userMethod) {
+  return popUp = new PopupWithForm(selectors, (inputValues) => {
     popUp.renderLoading(true);
     dataApi[apiMethod](inputValues)
-      .then(() => getDataAllPromise())
-      .then(popUp.close())
+      .then((data) => {
+        profileInfo[userMethod](data);
+      })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
+        popUp.close();
         popUp.renderLoading(false);
       });
   });
-  return popUp
 }
-const profilePopUp = newPopupWithForm(selectors.popUpEditProfile, profilePopUp, 'setUserInfoApi');
-const avatarPopUp = newPopupWithForm(selectors.popUpAvatar, avatarPopUp, 'setUserAvatarApi');
+const profilePopUp = getPopupWithForm(selectors.popUpEditProfile, profilePopUp, 'setUserInfoApi', 'setUserInfo');
+const avatarPopUp = getPopupWithForm(selectors.popUpAvatar, avatarPopUp, 'setUserAvatarApi', 'setUserInfo');
 const addCardPopUp = new PopupWithForm(selectors.popUpAddCard, (data) => {
   addCardPopUp.renderLoading(true);
   const newData = {
@@ -113,60 +120,40 @@ const addCardPopUp = new PopupWithForm(selectors.popUpAddCard, (data) => {
     link: data[selectors.cardLinkInput]
   };
   dataApi.addCard(newData)
-    .then(() => {
-      getDataAllPromise()
+    .then((res) => {
+      console.log(res)
+      cardList.prependItem(createCard(res));
     })
-    .then(() => addCardPopUp.close())
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
     .finally(() => {
+      addCardPopUp.close()
       addCardPopUp.renderLoading(false);
     });
 });
 
-function getDataAllPromise() {
-  dataApi.getAllPromise()
-    .then(([data, dataCards]) => {
-      profileInfo.setUserInfo(data);
-      profileInfo.setUserAvatar(data);
-      userID = data._id;
-      cardList.renderItems(dataCards);
+function handleLikeCard(cardData) {
+
+  dataApi.handleToggleLikeApi(cardData)
+    .then(data => {
+      cardData.setLike(data);
     })
     .catch((err) => {
       console.log(err);
     })
 }
-getDataAllPromise();
 
-function handleLikeCard(button, idCard, counterLike) {
-  if (button.classList.contains(selectorsCards.buttonLikeActiveCard)) {
-    dataApi.dislikesCard(idCard)
-      .then(data => {
-        button.classList.remove(selectorsCards.buttonLikeActiveCard);
-        counterLike.textContent = data.likes.length;
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
-  } else {
-    dataApi.likesCard(idCard)
-      .then(data => {
-        button.classList.add(selectorsCards.buttonLikeActiveCard);
-        counterLike.textContent = data.likes.length;
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
-  }
-}
-
-function handleCardDelete(idCardDelete) {
+function handleCardDelete(card) {
+  console.log()
   popupConfirmDelete.open();
-  popupConfirmDelete.setEventListeners(idCardDelete);
+  popupConfirmDelete.setEventListeners(card);
 }
 
-function handleConfirmCardDelete(idCardDelete) {
+function handleConfirmCardDelete(card) {
   popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(idCardDelete)
-    .then(() => getDataAllPromise())
+  dataApi.deleteCard(card._item.id)
+    .then(() => card.deleteCard())
     .finally(() => {
       popupConfirmDelete.close();
       popupConfirmDelete.renderLoading(false)
@@ -179,6 +166,20 @@ function handleConfirmCardDelete(idCardDelete) {
 function openImage(item) {
   popUpWithImage.open(item.link, item.name);
 }
+
+function getDataAllPromise() {
+  dataApi.getAllPromise()
+    .then(([data, dataCards]) => {
+      console.log(data, dataCards)
+      profileInfo.setUserInfo(data);
+      userID = data._id;
+      cardList.renderItems(dataCards);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+getDataAllPromise();
 
 buttonAddNewCard.addEventListener('click', () => {
   addCardPopUp.open();
