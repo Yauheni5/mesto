@@ -71,7 +71,7 @@ export class Api {
   }
 
   handleToggleLikeApi(dataCard) {
-    return fetch(`${this.url}/cards/${dataCard._item.id || dataCard._item._id}/likes`, {
+    return fetch(`${this.url}/cards/${(dataCard._item.idCard || dataCard._item._id)}/likes`, {
         method: dataCard.isLiked() ? "DELETE" : "PUT",
         headers: this._headers,
       })

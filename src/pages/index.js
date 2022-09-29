@@ -133,7 +133,6 @@ const addCardPopUp = new PopupWithForm(selectors.popUpAddCard, (data) => {
 });
 
 function handleLikeCard(cardData) {
-
   dataApi.handleToggleLikeApi(cardData)
     .then(data => {
       cardData.setLike(data);
@@ -150,7 +149,8 @@ function handleCardDelete(card) {
 
 function handleConfirmCardDelete(card) {
   popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(card._item.id || card._item._id)
+  console.log(card)
+  dataApi.deleteCard(card._idCard || card._item._id)
     .then(() => card.deleteCard())
     .finally(() => {
       popupConfirmDelete.close();
