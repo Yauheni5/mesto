@@ -149,7 +149,7 @@ function handleCardDelete(card) {
 
 function handleConfirmCardDelete(card) {
   popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(`${card?._idCard || card?._item._id}`)
+  dataApi.deleteCard(`${card?._idCard || card?._item?._id}`)
     .then(() => card.deleteCard())
     .finally(() => {
       popupConfirmDelete.close();
