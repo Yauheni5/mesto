@@ -69,7 +69,7 @@ const cardList = new Section({
       name: item.name,
       link: item.link,
       idOwner: item.owner._id,
-      id: item._id,
+      idCard: item._id,
       likes: item.likes
     });
     cardList.addItem(newCardApi);
@@ -89,8 +89,8 @@ function createCard(dataCard) {
   return newCard.generateCard();
 }
 
-const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, (idCardDelete) => {
-  handleConfirmCardDelete(idCardDelete)
+const popupConfirmDelete = new PopupWithConfirmation(selectors.popupConfirm, (cardData) => {
+  handleConfirmCardDelete(cardData)
 });
 
 const popUpWithImage = new PopupWithImage(selectorsCards.popUpViewCard);
@@ -121,7 +121,6 @@ const addCardPopUp = new PopupWithForm(selectors.popUpAddCard, (data) => {
   };
   dataApi.addCard(newData)
     .then((res) => {
-      console.log(res)
       cardList.prependItem(createCard(res));
     })
     .catch((err) => {
@@ -145,14 +144,13 @@ function handleLikeCard(cardData) {
 }
 
 function handleCardDelete(card) {
-  console.log()
   popupConfirmDelete.open();
   popupConfirmDelete.setEventListeners(card);
 }
 
 function handleConfirmCardDelete(card) {
   popupConfirmDelete.renderLoading(true);
-  dataApi.deleteCard(card._item.id)
+  dataApi.deleteCard(card._item.id || card._item._id)
     .then(() => card.deleteCard())
     .finally(() => {
       popupConfirmDelete.close();
@@ -170,7 +168,6 @@ function openImage(item) {
 function getDataAllPromise() {
   dataApi.getAllPromise()
     .then(([data, dataCards]) => {
-      console.log(data, dataCards)
       profileInfo.setUserInfo(data);
       userID = data._id;
       cardList.renderItems(dataCards);

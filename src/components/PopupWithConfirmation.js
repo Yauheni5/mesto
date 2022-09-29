@@ -24,11 +24,11 @@ export class PopupWithConfirmation extends Popup {
     }
   }
 
-  setEventListeners(idCardDelete) {
+  setEventListeners(card) {
     super.setEventListeners();
     this.form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this.submitHandler(idCardDelete);
+      this.submitHandler(card);
     });
   }
 }
